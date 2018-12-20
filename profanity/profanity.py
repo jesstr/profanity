@@ -59,10 +59,11 @@ def censor(input_text):
     of characters plucked from the censor_characters pool.
 
     """
-    ret = input_text
+    ret = unicode(input_text, "utf-8")
     words = get_words()
     for word in words:
-        curse_word = re.compile(re.escape(word), re.IGNORECASE)
+        word = unicode(word, "utf-8")
+        curse_word = re.compile(re.escape(word), re.IGNORECASE | re.UNICODE)
         cen = "".join(get_censor_char() for i in list(word))
         ret = curse_word.sub(cen, ret)
     return ret
